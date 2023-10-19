@@ -4,3 +4,4 @@ draft.py
 /data/
 **/logs/
 logs
+/tensorboard/
