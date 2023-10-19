@@ -31,11 +31,9 @@ class AnimalDataset(Dataset):
     def __getitem__(self, idx):
         image_path = self.image_paths[idx]
         image = cv2.imread(image_path)
-        # image = torch.from_numpy(image)
         label = self.labels[idx]
         if self.transform:
             image = self.transform(image)
-        # image = np.transpose(image, (2,0,1))
         return image, label
 
 if __name__=='__main__':
