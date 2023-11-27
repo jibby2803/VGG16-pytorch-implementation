@@ -10,7 +10,7 @@ Due to hardware limitations, I only trained the model for approximately 28 epoch
   <i>Figure_1</i>
 </p>
 <p align="center">
-  <img src="Images/Figure_2.png" width=600><br/>
+  <img src="./Images/Figure_2.png" width=600><br/>
   <i>Figure_2</i>
 </p>
 
@@ -26,6 +26,6 @@ The code was organized:
 * *Model architecture was implemented in:* **vgg16_model.py**
 * *Script to train model:* **train.py**
 * *Test the model with new image:* **test.py**
-In the notebook directory, you can also use **animals_classification.ipynb** and adjust some things accordingly your conditions to train on notebook or Google colab.
+* *In the notebook directory, you can also use* **animals_classification.ipynb** *and adjust some things accordingly your conditions to train on notebook or Google colab.*
 
 
