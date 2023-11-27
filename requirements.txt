@@ -1,0 +1,7 @@
+torch==2.1.1
+numpy==1.26.0
+opencv-python
+matplotlib
+torchvision
+scikit-learn 
+tqdm

@@ -45,14 +45,14 @@ if __name__=='__main__':
     
     model = VGG16_net().to(device)
     if os.path.exists('model/last.pt'):
-        model.load_state_dict(torch.load('model/last.pt'))
+        model.load_state_dict(torch.load('model/last.pt',map_location=torch.device('cpu')))
     criterion = nn.CrossEntropyLoss()
     optimizer = optim.SGD(model.parameters(), lr=1e-3, momentum=0.9)
       
     best_acc = 0
     best_model = VGG16_net().to(device)
     if os.path.exists('model/best.pt'):
-        best_model.load_state_dict(torch.load('model/best.pt'))
+        best_model.load_state_dict(torch.load('model/best.pt',map_location=torch.device('cpu')))
         best_model.eval()
         all_predictions_best = []
         all_labels_best = []
@@ -70,7 +70,7 @@ if __name__=='__main__':
         all_predictions_best = [prediction.item() for prediction in all_predictions_best]
         best_acc = accuracy_score(all_labels_best, all_predictions_best)
     
-    
+    print('fdghsfhgsdjkfhsdhfj')
     
     for epoch in range(epochs):
         model.train()
