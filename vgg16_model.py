@@ -2,15 +2,15 @@ import torch
 import torch.nn as nn
 import torch.nn.functional as F  
 
-class VVG19_net(nn.Module):
+class VGG16_net(nn.Module):
     def __init__(self, in_channels=3, n_classes=10):
         super().__init__()
         self.in_channels = in_channels
         self.conv1 = self.conv_block(in_channels=self.in_channels, block=[64, 64])
         self.conv2 = self.conv_block(in_channels=64, block=[128, 128])
-        self.conv3 = self.conv_block(in_channels=128, block=[256, 256, 256, 256])
-        self.conv4 = self.conv_block(in_channels=256, block=[512, 512, 512, 512])
-        self.conv5 = self.conv_block(in_channels=512, block=[512, 512, 512, 512])
+        self.conv3 = self.conv_block(in_channels=128, block=[256, 256, 256])
+        self.conv4 = self.conv_block(in_channels=256, block=[512, 512, 512])
+        self.conv5 = self.conv_block(in_channels=512, block=[512, 512, 512])
         self.fcs = nn.Sequential(
             nn.Flatten(),
             nn.Linear(512*7*7, 4096),
@@ -42,7 +42,7 @@ class VVG19_net(nn.Module):
         return nn.Sequential(*layers)
         
 if __name__=='__main__':
-    model = VVG19_net()
+    model = VGG16_net()
     x = torch.randn(8, 3, 224, 224)
     print(model)
     print(model(x).shape)

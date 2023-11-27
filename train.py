@@ -10,7 +10,7 @@ from sklearn.metrics import classification_report, accuracy_score
 from tqdm import tqdm
 from argparse import ArgumentParser
 from dataset import AnimalDataset
-from vgg19_model import VVG19_net
+from vgg16_model import VGG16_net
 from transforms import *
 # from torch.utils.tensorboard import SummaryWriter
 
@@ -43,10 +43,35 @@ if __name__=='__main__':
     
     # writer = SummaryWriter(logging)
     
-    model = VVG19_net().to(device)
+    model = VGG16_net().to(device)
+    if os.path.exists('model/last.pt'):
+        model.load_state_dict(torch.load('model/last.pt'))
     criterion = nn.CrossEntropyLoss()
-    optimizer = optim.Adam(model.parameters(), lr=1e-3)
+    optimizer = optim.SGD(model.parameters(), lr=1e-3, momentum=0.9)
+      
     best_acc = 0
+    best_model = VGG16_net().to(device)
+    if os.path.exists('model/best.pt'):
+        best_model.load_state_dict(torch.load('model/best.pt'))
+        best_model.eval()
+        all_predictions_best = []
+        all_labels_best = []
+        for iter, (images, labels) in enumerate(test_dataloader):
+            images = images.to(device)
+            labels = labels.to(device)
+            
+            with torch.no_grad():
+                outputs = best_model(images)
+                loss = criterion(outputs, labels)
+                predictions = torch.argmax(outputs.cpu(), dim=1)
+                all_predictions_best.extend(predictions)
+                all_labels_best.extend(labels.cpu())     
+        all_labels_best = [label.item() for label in all_labels_best]
+        all_predictions_best = [prediction.item() for prediction in all_predictions_best]
+        best_acc = accuracy_score(all_labels_best, all_predictions_best)
+    
+    
+    
     for epoch in range(epochs):
         model.train()
         progress_bar = tqdm(train_dataloader)
@@ -71,7 +96,7 @@ if __name__=='__main__':
             
             with torch.no_grad():
                 outputs = model(images)
-                loss = criterion(outputs, labels.cpu())
+                loss = criterion(outputs, labels)
                 predictions = torch.argmax(outputs.cpu(), dim=1)
                 all_predictions.extend(predictions)
                 all_labels.extend(labels.cpu())     

@@ -1,10 +1,10 @@
-from vgg19_model import VGG19_net
+from vgg16_model import VGG16_net
 import cv2
 from transforms import *
 import torch
 
 
-model = VGG19_net()
+model = VGG16_net()
 model.load_state_dict(torch.load('model/best.pt'))
 
 def predict(img):
