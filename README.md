@@ -1,4 +1,4 @@
-# VGG16-pytorch-implement
+# VGG16-pytorch-implementation
 ## Introduction
 Here is pytorch implementation of VGG16 from scratch. It was trained on animal dataset for animal classification. It is a pratical project for basic skills in computer vision.
 You can down load dataset from [here](https://www.kaggle.com/datasets/alessiocorrado99/animals10/)
